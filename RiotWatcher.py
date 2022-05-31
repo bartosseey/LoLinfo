@@ -1,3 +1,5 @@
+from datetime import MAXYEAR
+from sys import settrace
 from riotwatcher import LolWatcher, ApiError
 
 class LoLwatcher(): 
@@ -16,56 +18,61 @@ class LoLwatcher():
 
     @property
     def queueTypeInfo(self):
-        if len(self.myRankedStats)==2:
-            self.ranks = "both"
-            self.flexq = self.myRankedStats[0]
-            self.soloq = self.myRankedStats[1]
-        elif len(self.myRankedStats)==1 and self.myRankedStats[0]['queueType']=="RANKED_FLEX_SR":
-            self.ranks = "flex"
-            self.flexq = self.myRankedStats[0]
-            self.soloq = "UNRANKED"
-        elif len(self.myRankedStats)==1 and self.myRankedStats[0]['queueType']=="RANKED_SOLO_5x5":
-            self.ranks = "solo"
-            self.soloq = self.myRankedStats[0]
-            self.flexq = "UNRANKED"
+        self.soloq = "UNRANKED"
+        self.flexq = "UNRANKED"
+        for i in range(len(self.myRankedStats)):
+            if self.myRankedStats[i]['queueType'] == "RANKED_FLEX_SR":
+                self.flexq = self.myRankedStats[i]
+            if self.myRankedStats[i]['queueType'] == "RANKED_SOLO_5x5":
+                self.soloq = self.myRankedStats[i]
+
+        
 
     @property
     def statistics(self):
-        if self.ranks == "both":
-            self.leaguePointsFlex = self.myRankedStats[0]['leaguePoints']
-            self.tierFlex = self.myRankedStats[0]['tier']
-            self.rankFlex = self.myRankedStats[0]['rank']
-            self.winsFlex = self.myRankedStats[0]['wins']
-            self.lossesFlex = self.myRankedStats[0]['losses']
-            self.allGamesFlex = self.winsFlex+self.lossesFlex
-            self.winratioFlex = round(self.winsFlex/self.allGamesFlex,2)
+        if self.flexq=="UNRANKED" and self.soloq=="UNRANKED":
+            return "solo rank: UNRANKED \n flex rank: UNRANKED"
 
-            self.leaguePointsSolo = self.myRankedStats[1]['leaguePoints']
-            self.tierSolo = self.myRankedStats[1]['tier']
-            self.rankSolo = self.myRankedStats[1]['rank']
-            self.winsSolo = self.myRankedStats[1]['wins']
-            self.lossesSolo = self.myRankedStats[1]['losses']
+            
+        if self.flexq and self.soloq=="UNRANKED":
+            self.leaguePointsFlex = self.flexq['leaguePoints']
+            self.tierFlex = self.flexq['tier']
+            self.rankFlex = self.flexq['rank']
+            self.winsFlex = self.flexq['wins']
+            self.lossesFlex = self.flexq['losses']
+            self.allGamesFlex = self.winsFlex+self.lossesFlex
+            self.winratioFlex = (round(self.winsFlex/self.allGamesFlex,2))*100
+            return "flex rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} % \nsolo rank: UNRANKED".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex)
+
+        if self.soloq and self.flexq=="UNRANKED":
+            self.leaguePointsSolo = self.soloq['leaguePoints']
+            self.tierSolo = self.soloq['tier']
+            self.rankSolo = self.soloq['rank']
+            self.winsSolo = self.soloq['wins']
+            self.lossesSolo = self.soloq['losses']
             self.allGamesSolo = self.winsSolo+self.lossesSolo
-            self.winratioSolo = round(self.winsSolo/self.allGamesSolo,2)
-            return "flex rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} \nsolo rank: {} {} {} LP, wins: {}, losses: {}, winratio: {}".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex, self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
+            self.winratioSolo = (round(self.winsSolo/self.allGamesSolo,2))*100
+            return "flex rank: UNRANKED \nsolo rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} %".format(self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
+
+        
+
+        else:
+            self.leaguePointsFlex = self.flexq['leaguePoints']
+            self.tierFlex = self.flexq['tier']
+            self.rankFlex = self.flexq['rank']
+            self.winsFlex = self.flexq['wins']
+            self.lossesFlex = self.flexq['losses']
+            self.allGamesFlex = self.winsFlex+self.lossesFlex
+            self.winratioFlex = (round(self.winsFlex/self.allGamesFlex,2))*100
+
+            self.leaguePointsSolo = self.soloq['leaguePoints']
+            self.tierSolo = self.soloq['tier']
+            self.rankSolo = self.soloq['rank']
+            self.winsSolo = self.soloq['wins']
+            self.lossesSolo = self.soloq['losses']
+            self.allGamesSolo = self.winsSolo+self.lossesSolo
+            self.winratioSolo = (round(self.winsSolo/self.allGamesSolo,2))*100
+            return "flex rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} % \nsolo rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} %".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex, self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
        
        
-        elif self.ranks == "flex":
-            self.leaguePointsFlex = self.myRankedStats[0]['leaguePoints']
-            self.tierFlex = self.myRankedStats[0]['tier']
-            self.rankFlex = self.myRankedStats[0]['rank']
-            self.winsFlex = self.myRankedStats[0]['wins']
-            self.lossesFlex = self.myRankedStats[0]['losses']
-            self.allGamesFlex = self.winsFlex+self.lossesFlex
-            self.winratioFlex = round(self.winsFlex/self.allGamesFlex,2)
-            return "flex rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} \nsolo rank: UNRANKED".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex)
-
-        elif self.ranks == "solo":
-            self.leaguePointsSolo = self.myRankedStats[0]['leaguePoints']
-            self.tierSolo = self.myRankedStats[0]['tier']
-            self.rankSolo = self.myRankedStats[0]['rank']
-            self.winsSolo = self.myRankedStats[0]['wins']
-            self.lossesSolo = self.myRankedStats[0]['losses']
-            self.allGamesSolo = self.winsSolo+self.lossesSolo
-            self.winratioSolo = round(self.winsSolo/self.allGamesSolo,2)
-            return "flex rank: UNRANKED \nsolo rank: {} {} {} LP, wins: {}, losses: {}, winratio: {}".format(self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
+        

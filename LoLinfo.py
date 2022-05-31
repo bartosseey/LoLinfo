@@ -25,21 +25,24 @@ class Gui:
         self.button = Button(master, text="View info", command=lambda: self.display(nickname, regions_var))
         self.button.pack()
 
+        self.statLabel = Label(master)
+        self.statLabel.pack()
+
 
     def display(self, nickname, regions_var):
         name = nickname.get()
         region = regions_var.get()
+        me = RiotWatcher.LoLwatcher("eun1", name)
+        me.queueTypeInfo
+        self.statLabel.config(text=me.statistics)
+
         print(name)
         print(region)
 
 if __name__=="__main__":
-    #me = RiotWatcher.LoLwatcher("eun1", Gui.myLabel)
-    #me.queueTypeInfo
-    #print(me.statistics)
     root = Tk()
     root.title("LoLinfo")
     root.geometry("600x800")
     app = Gui(root)
-
 
     root.mainloop()
