@@ -1,5 +1,3 @@
-from datetime import MAXYEAR
-from sys import settrace
 from riotwatcher import LolWatcher, ApiError
 
 class LoLwatcher(): 
@@ -33,7 +31,7 @@ class LoLwatcher():
         if self.flexq=="UNRANKED" and self.soloq=="UNRANKED":
             return "solo rank: UNRANKED \n flex rank: UNRANKED"
 
-            
+
         if self.flexq and self.soloq=="UNRANKED":
             self.leaguePointsFlex = self.flexq['leaguePoints']
             self.tierFlex = self.flexq['tier']
