@@ -1,7 +1,7 @@
 from riotwatcher import LolWatcher, ApiError
 
 class LoLwatcher(): 
-    lol_watcher = LolWatcher('RGAPI-5347f8d2-e124-401e-bbad-0d52aef74900')
+    lol_watcher = LolWatcher('RGAPI-41794bad-b047-4f0e-b38c-71ba0b7e659e')
     def __init__(self, region, name):
         self.region = region
         self.name = name
