@@ -9,38 +9,44 @@ import RiotWatcher
 
 class Gui:
     def __init__(self, master):
-        myFrame = Frame(master)
-        myFrame.pack()
+        #myFrame = Frame(master)
+        #myFrame.pack()
 
         nickname = StringVar()
         self.myLabel = Label(master, text="Enter your summoner name:")
-        self.myLabel.configure(background='black', fg='white', font=("Roboto",12) )
-        self.myLabel.pack(pady=5)
+        self.myLabel.configure(background='black', fg='white', font=("Roboto",14))
+        self.myLabel.place(relx=0.5, rely=0, anchor='n')
 
         self.entry = Entry(master, textvariable= nickname)
-        self.entry.configure(font=("Roboto, 10"))
-        self.entry.pack(pady=5)
+        self.entry.configure(font=("Roboto, 17"), justify='center' )
+        self.entry.place(relx=0.3, rely=0.05, anchor='n')
         regions = ["EUNE", "EUW", "NA"]
         regions_var = StringVar()
         regions_var.set(regions[0])
 
         self.list = OptionMenu(master, regions_var, *regions)
-        self.list.pack(pady=5)
+        self.list.configure(font=("Roboto, 10"))
+        self.list.place(relx=0.61, rely=0.05, anchor='n')
 
-        self.button = Button(master, text="View info", command=lambda: self.display(nickname, regions_var))
-        self.button.pack(pady=5)
+        self.button = Button(master, text="View stats", command=lambda: self.display(nickname, regions_var))
+        self.button.configure(font=("Roboto, 12"))
+        self.button.place(relx=0.78, rely=0.05, anchor='n')
 
         self.iconLabel = Label(master)
         self.iconLabel.configure(background='black')
-        self.iconLabel.pack(pady=5)
+        self.iconLabel.place(relx=0.5, rely=0.1, anchor="n")
 
         self.nameLabel = Label(master)
         self.nameLabel.configure(background='black', fg='white', font=("Roboto",13))
-        self.nameLabel.pack()
+        self.nameLabel.place(relx=0.5, rely=0.2, anchor="n")
 
-        self.statLabel = Label(master)
-        self.statLabel.configure(background='black', fg='white', font=("Roboto",13))
-        self.statLabel.pack(pady=5)
+        self.soloqLabel = Label(master)
+        self.soloqLabel.configure(background='black', fg='white', font=("Roboto",11))
+        self.soloqLabel.place(relx=0.7, rely=0.25, anchor="n")
+
+        self.flexqLabel = Label(master)
+        self.flexqLabel.configure(background='black', fg='white', font=("Roboto",11))
+        self.flexqLabel.place(relx=0.3, rely=0.25, anchor="n")
 
         
 
@@ -52,7 +58,8 @@ class Gui:
         me = RiotWatcher.LoLwatcher(regionDict[region], name)
         print(name)
         print(region)
-        self.showStats(me, region)
+        self.showStatsSolo(me, region)
+        self.showStatsFlex(me, region)
         self.showProfile(me, name)
 
 
@@ -68,19 +75,33 @@ class Gui:
 
         self.nameLabel.config(text=name)
 
-    def showStats(self, me, region):
+    def showStatsSolo(self, me, region):
         try:
             me.queueTypeInfo
-            self.statLabel.config(text=me.statistics)
+            self.soloqLabel.config(text=me.statisticsSolo)
         except ApiError as err:
             if err.response.status_code == 429:
-                self.statLabel.config(text="Too many requests. Try again later!")
+                self.soloqLabel.config(text="Too many requests. Try again later!")
                 print('We should retry in {} seconds.'.format(err.headers['Retry-After']))
                 print('this retry-after is handled by default by the RiotWatcher library')
                 print('future requests wait until the retry-after time passes')
             elif err.response.status_code == 404:
-                self.statLabel.config(text='Summoner with that ridiculous name not found.')
-
+                self.soloqLabel.config(text='Summoner with that ridiculous name not found.')
+    
+    
+    def showStatsFlex(self, me, region):
+        try:
+            me.queueTypeInfo
+            self.flexqLabel.config(text=me.statisticsFlex)
+        except ApiError as err:
+            if err.response.status_code == 429:
+                self.flexqLabel.config(text="Too many requests. Try again later!")
+                print('We should retry in {} seconds.'.format(err.headers['Retry-After']))
+                print('this retry-after is handled by default by the RiotWatcher library')
+                print('future requests wait until the retry-after time passes')
+            elif err.response.status_code == 404:
+                self.flexqLabel.config(text='Summoner with that ridiculous name not found.')
+    
 
 
 if __name__=="__main__":

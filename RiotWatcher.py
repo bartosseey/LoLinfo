@@ -27,22 +27,12 @@ class LoLwatcher():
         
 
     @property
-    def statistics(self):
-        if self.flexq=="UNRANKED" and self.soloq=="UNRANKED":
-            return "solo rank: UNRANKED \n flex rank: UNRANKED"
+    def statisticsSolo(self):
+        if self.soloq=="UNRANKED":
+            return "solo rank: UNRANKED"
 
 
-        if self.flexq and self.soloq=="UNRANKED":
-            self.leaguePointsFlex = self.flexq['leaguePoints']
-            self.tierFlex = self.flexq['tier']
-            self.rankFlex = self.flexq['rank']
-            self.winsFlex = self.flexq['wins']
-            self.lossesFlex = self.flexq['losses']
-            self.allGamesFlex = self.winsFlex+self.lossesFlex
-            self.winratioFlex = (round(self.winsFlex/self.allGamesFlex,2))*100
-            return "flex rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} % \nsolo rank: UNRANKED".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex)
-
-        if self.soloq and self.flexq=="UNRANKED":
+        if self.soloq:
             self.leaguePointsSolo = self.soloq['leaguePoints']
             self.tierSolo = self.soloq['tier']
             self.rankSolo = self.soloq['rank']
@@ -50,11 +40,13 @@ class LoLwatcher():
             self.lossesSolo = self.soloq['losses']
             self.allGamesSolo = self.winsSolo+self.lossesSolo
             self.winratioSolo = (round(self.winsSolo/self.allGamesSolo,2))*100
-            return "flex rank: UNRANKED \nsolo rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} %".format(self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
+            return "solo rank: {} {} {} LP \n wins: {} \n losses: {} \n winratio: {} %".format(self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
 
-        
-
-        else:
+    @property
+    def statisticsFlex(self):
+        if self.flexq == "UNRANKED":
+            return "flex rank: UNRANKED"
+        if self.flexq:
             self.leaguePointsFlex = self.flexq['leaguePoints']
             self.tierFlex = self.flexq['tier']
             self.rankFlex = self.flexq['rank']
@@ -62,15 +54,7 @@ class LoLwatcher():
             self.lossesFlex = self.flexq['losses']
             self.allGamesFlex = self.winsFlex+self.lossesFlex
             self.winratioFlex = (round(self.winsFlex/self.allGamesFlex,2))*100
+            return "flex rank: {} {} {} LP \n wins: {} \n losses: {} \n winratio: {} %".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex)
 
-            self.leaguePointsSolo = self.soloq['leaguePoints']
-            self.tierSolo = self.soloq['tier']
-            self.rankSolo = self.soloq['rank']
-            self.winsSolo = self.soloq['wins']
-            self.lossesSolo = self.soloq['losses']
-            self.allGamesSolo = self.winsSolo+self.lossesSolo
-            self.winratioSolo = (round(self.winsSolo/self.allGamesSolo,2))*100
-            return "flex rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} % \nsolo rank: {} {} {} LP, wins: {}, losses: {}, winratio: {} %".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex, self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
-       
        
         
