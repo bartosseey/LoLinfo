@@ -48,6 +48,22 @@ class Gui:
         self.flexqLabel.configure(background='black', fg='white', font=("Roboto",11))
         self.flexqLabel.place(relx=0.3, rely=0.25, anchor="n")
 
+        self.champion1Label=Label(master)
+        self.champion1Label.configure(background='yellow')
+        self.champion1Label.place(relx=0.05, rely=0.4, anchor='w')
+
+
+
+        self.champion2Label=Label(master)
+        self.champion2Label.configure(background='yellow')
+        self.champion2Label.place(relx=0.05, rely=0.6, anchor='w')
+
+
+
+        self.champion3Label=Label(master)
+        self.champion3Label.configure(background='yellow')
+        self.champion3Label.place(relx=0.05, rely=0.8, anchor='w')
+
         
 
 
