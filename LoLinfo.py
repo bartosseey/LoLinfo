@@ -58,9 +58,10 @@ class Gui:
         me = RiotWatcher.LoLwatcher(regionDict[region], name)
         print(name)
         print(region)
-        self.showStatsSolo(me, region)
-        self.showStatsFlex(me, region)
+        self.showStatsSolo(me)
+        self.showStatsFlex(me)
         self.showProfile(me, name)
+        self.showLastGames(me)
 
 
     def showProfile(self, me, name):
@@ -75,7 +76,7 @@ class Gui:
 
         self.nameLabel.config(text=name)
 
-    def showStatsSolo(self, me, region):
+    def showStatsSolo(self, me):
         try:
             me.queueTypeInfo
             self.soloqLabel.config(text=me.statisticsSolo)
@@ -89,7 +90,7 @@ class Gui:
                 self.soloqLabel.config(text='Summoner with that ridiculous name not found.')
     
     
-    def showStatsFlex(self, me, region):
+    def showStatsFlex(self, me):
         try:
             me.queueTypeInfo
             self.flexqLabel.config(text=me.statisticsFlex)
@@ -101,6 +102,11 @@ class Gui:
                 print('future requests wait until the retry-after time passes')
             elif err.response.status_code == 404:
                 self.flexqLabel.config(text='Summoner with that ridiculous name not found.')
+
+    def showLastGames(self, me):
+        last3matches = me.myMatches
+        print(last3matches)
+
     
 
 
@@ -108,6 +114,7 @@ if __name__=="__main__":
     root = Tk()
     root.title("LoLinfo")
     root.geometry("600x800")
+    root.resizable(False, False)
     root.configure(bg="black")
     app = Gui(root)
 
