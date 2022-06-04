@@ -1,7 +1,7 @@
 from riotwatcher import LolWatcher, ApiError
 
 class LoLwatcher(): 
-    lol_watcher = LolWatcher('RGAPI-dd1824b1-d96b-4997-8400-c4060525f60f')
+    lol_watcher = LolWatcher('RGAPI-b8d04474-bd75-4717-bba7-be3c5c9355d7')
     def __init__(self, region, name):
         self.region = region
         self.name = name
@@ -90,7 +90,7 @@ class LoLwatcher():
                 participants_row['item4'] = row['item4']
                 participants_row['item5'] = row['item5']
                 participants_row['item6'] = row['item6']
-            match_detail2.append(participants_row)
+                match_detail2.append(participants_row)
         last3matches = []
         last3matches.append(match_detail0)
         last3matches.append(match_detail1)
