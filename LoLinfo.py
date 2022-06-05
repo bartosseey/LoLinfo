@@ -91,15 +91,15 @@ class Gui:
 
 
         self.kda1Label = Label(master)
-        self.kda1Label.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda1Label.configure(background='black', fg='white', font=("Roboto",15))
         self.kda1Label.place(relx=0.205, rely=0.44, anchor='w')
 
         self.kda2Label = Label(master)
-        self.kda2Label.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda2Label.configure(background='black', fg='white', font=("Roboto",15))
         self.kda2Label.place(relx=0.205, rely=0.64, anchor='w')
 
         self.kda3Label = Label(master)
-        self.kda3Label.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda3Label.configure(background='black', fg='white', font=("Roboto",15))
         self.kda3Label.place(relx=0.205, rely=0.84, anchor='w')
 
         self.kda1RatioLabel = Label(master)
@@ -114,7 +114,30 @@ class Gui:
         self.kda3RatioLabel.configure(background='black', fg='white', font=("Roboto",13))
         self.kda3RatioLabel.place(relx=0.21, rely=0.865, anchor='w')
 
+        self.cs1Label = Label(master)
+        self.cs1Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.cs1Label.place(relx=0.82, rely=0.42, anchor='e')
         
+        self.cs2Label = Label(master)
+        self.cs2Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.cs2Label.place(relx=0.82, rely=0.62, anchor='e')
+
+        self.cs3Label = Label(master)
+        self.cs3Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.cs3Label.place(relx=0.82, rely=0.82, anchor='e')
+
+
+        self.time1Label = Label(master)
+        self.time1Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.time1Label.place(relx=0.95, rely=0.42, anchor='e')
+
+        self.time2Label = Label(master)
+        self.time2Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.time2Label.place(relx=0.95, rely=0.62, anchor='e')
+
+        self.time3Label = Label(master)
+        self.time3Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.time3Label.place(relx=0.95, rely=0.82, anchor='e')
 
     def display(self, nickname, regions_var):
         name = nickname.get()
@@ -174,6 +197,8 @@ class Gui:
         self.showChampionName(last3matches)
         self.winLose(last3matches)
         self.showKDA(last3matches)
+        self.showCS(last3matches)
+        self.showTime(last3matches)
         
 
 
@@ -226,7 +251,7 @@ class Gui:
         else:
             self.winOrLoseLabel2.configure(text='LOSE',fg="red")
 
-        if win2 == True:
+        if win3 == True:
             self.winOrLoseLabel3.configure(text='WIN',fg="green")
         else:
             self.winOrLoseLabel3.configure(text='LOSE',fg="red")
@@ -240,14 +265,31 @@ class Gui:
         self.kda2Label.configure(text=kda2)
         self.kda3Label.configure(text=kda3)
 
-        kda1Ratio = round((last3matches[0][0]['kills']+last3matches[0][0]['assists'])/last3matches[0][0]['deaths'],2)
-        kda2Ratio = round((last3matches[1][0]['kills']+last3matches[1][0]['assists'])/last3matches[1][0]['deaths'],2)
-        kda3Ratio = round((last3matches[2][0]['kills']+last3matches[2][0]['assists'])/last3matches[2][0]['deaths'],2)
+        kda1Ratio = str(round((last3matches[0][0]['kills']+last3matches[0][0]['assists'])/last3matches[0][0]['deaths'],2)) + " KDA"
+        kda2Ratio = str(round((last3matches[1][0]['kills']+last3matches[1][0]['assists'])/last3matches[1][0]['deaths'],2)) + " KDA"
+        kda3Ratio = str(round((last3matches[2][0]['kills']+last3matches[2][0]['assists'])/last3matches[2][0]['deaths'],2)) + " KDA"
 
         self.kda1RatioLabel.configure(text=kda1Ratio)
         self.kda2RatioLabel.configure(text=kda2Ratio)
         self.kda3RatioLabel.configure(text=kda3Ratio)
     
+    def showCS(self, last3matches):
+        cs1 = str(last3matches[0][0]['totalMinionsKilled']) + " CS"
+        cs2 = str(last3matches[1][0]['totalMinionsKilled'])+ " CS"
+        cs3 = str(last3matches[2][0]['totalMinionsKilled'])+ " CS"
+
+        self.cs1Label.configure(text=cs1)
+        self.cs2Label.configure(text=cs2)
+        self.cs3Label.configure(text=cs3)
+
+    def showTime(self, last3matches):
+        time1=last3matches[0][0]['time']
+        time2=last3matches[1][0]['time']
+        time3=last3matches[2][0]['time']
+
+        self.time1Label.configure(text=time1)
+        self.time2Label.configure(text=time2)
+        self.time3Label.configure(text=time3)
 
 
 if __name__=="__main__":

@@ -1,4 +1,5 @@
 from riotwatcher import LolWatcher, ApiError
+import datetime
 
 class LoLwatcher(): 
     lol_watcher = LolWatcher('RGAPI-9048a62b-72cd-4cd9-b737-fdf58063b789')
@@ -26,10 +27,16 @@ class LoLwatcher():
         fullmatch_detail1 = self.lol_watcher.match.by_id(self.region, last_matches[1])
         fullmatch_detail2 = self.lol_watcher.match.by_id(self.region, last_matches[2])
 
+        times = []
+        time1 = str(datetime.timedelta(seconds=fullmatch_detail0['info']['gameDuration']))
+        time2 = str(datetime.timedelta(seconds=fullmatch_detail1['info']['gameDuration']))
+        time3 = str(datetime.timedelta(seconds=fullmatch_detail2['info']['gameDuration']))
+        times.append(time1)
+        times.append(time2)
+        times.append(time3)
         match_detail0 = []
         match_detail1 = []
         match_detail2 = []
-
 
         for row in fullmatch_detail0['info']['participants']:
             
@@ -51,6 +58,7 @@ class LoLwatcher():
                 participants_row['item4'] = row['item4']
                 participants_row['item5'] = row['item5']
                 participants_row['item6'] = row['item6']
+                participants_row['time'] = time1
                 match_detail0.append(participants_row)
         for row in fullmatch_detail1['info']['participants']:
             participants_row = {}
@@ -71,6 +79,7 @@ class LoLwatcher():
                 participants_row['item4'] = row['item4']
                 participants_row['item5'] = row['item5']
                 participants_row['item6'] = row['item6']
+                participants_row['time'] = time2
                 match_detail1.append(participants_row)
         for row in fullmatch_detail2['info']['participants']:
             participants_row = {}
@@ -91,13 +100,15 @@ class LoLwatcher():
                 participants_row['item4'] = row['item4']
                 participants_row['item5'] = row['item5']
                 participants_row['item6'] = row['item6']
+                participants_row['time'] = time3
                 match_detail2.append(participants_row)
         last3matches = []
         last3matches.append(match_detail0)
         last3matches.append(match_detail1)
         last3matches.append(match_detail2)
+        last3matches.append(times)
         return last3matches
-        
+
 
     @property
     def queueTypeInfo(self):
