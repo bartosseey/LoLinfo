@@ -1,3 +1,5 @@
+from cProfile import label
+from re import L
 from tkinter import *
 from turtle import back
 from typing import List
@@ -87,6 +89,33 @@ class Gui:
         self.winOrLoseLabel3.configure(background='black', fg='white', font=("Roboto",14))
         self.winOrLoseLabel3.place(relx=0.08, rely=0.91, anchor='w')
 
+
+        self.kda1Label = Label(master)
+        self.kda1Label.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda1Label.place(relx=0.205, rely=0.44, anchor='w')
+
+        self.kda2Label = Label(master)
+        self.kda2Label.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda2Label.place(relx=0.205, rely=0.64, anchor='w')
+
+        self.kda3Label = Label(master)
+        self.kda3Label.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda3Label.place(relx=0.205, rely=0.84, anchor='w')
+
+        self.kda1RatioLabel = Label(master)
+        self.kda1RatioLabel.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda1RatioLabel.place(relx=0.21, rely=0.465, anchor='w')
+
+        self.kda2RatioLabel = Label(master)
+        self.kda2RatioLabel.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda2RatioLabel.place(relx=0.21, rely=0.665, anchor='w')
+
+        self.kda3RatioLabel = Label(master)
+        self.kda3RatioLabel.configure(background='black', fg='white', font=("Roboto",13))
+        self.kda3RatioLabel.place(relx=0.21, rely=0.865, anchor='w')
+
+        
+
     def display(self, nickname, regions_var):
         name = nickname.get()
         region = regions_var.get()
@@ -144,6 +173,7 @@ class Gui:
         self.showChampionIcon(last3matches)
         self.showChampionName(last3matches)
         self.winLose(last3matches)
+        self.showKDA(last3matches)
         
 
 
@@ -201,9 +231,22 @@ class Gui:
         else:
             self.winOrLoseLabel3.configure(text='LOSE',fg="red")
 
-        
+    def showKDA(self, last3matches):
+        kda1 = str(last3matches[0][0]['kills']) + "/"+ str(last3matches[0][0]['deaths']) + "/" + str(last3matches[0][0]['assists'])
+        kda2 = str(last3matches[1][0]['kills']) + "/"+ str(last3matches[1][0]['deaths']) + "/" + str(last3matches[1][0]['assists'])
+        kda3 = str(last3matches[2][0]['kills']) + "/"+ str(last3matches[2][0]['deaths']) + "/" + str(last3matches[2][0]['assists'])
 
+        self.kda1Label.configure(text=kda1)
+        self.kda2Label.configure(text=kda2)
+        self.kda3Label.configure(text=kda3)
 
+        kda1Ratio = round((last3matches[0][0]['kills']+last3matches[0][0]['assists'])/last3matches[0][0]['deaths'],2)
+        kda2Ratio = round((last3matches[1][0]['kills']+last3matches[1][0]['assists'])/last3matches[1][0]['deaths'],2)
+        kda3Ratio = round((last3matches[2][0]['kills']+last3matches[2][0]['assists'])/last3matches[2][0]['deaths'],2)
+
+        self.kda1RatioLabel.configure(text=kda1Ratio)
+        self.kda2RatioLabel.configure(text=kda2Ratio)
+        self.kda3RatioLabel.configure(text=kda3Ratio)
     
 
 
