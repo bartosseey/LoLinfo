@@ -1,8 +1,11 @@
 from riotwatcher import LolWatcher, ApiError
 import datetime
 
+import apikey
+
 class LoLwatcher(): 
-    lol_watcher = LolWatcher('RGAPI-9048a62b-72cd-4cd9-b737-fdf58063b789')
+    api = apikey.apikey()
+    lol_watcher = LolWatcher(api)
     def __init__(self, region, name):
         self.region = region
         self.name = name
