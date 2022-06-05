@@ -92,27 +92,27 @@ class Gui:
 
         self.kda1Label = Label(master)
         self.kda1Label.configure(background='black', fg='white', font=("Roboto",15))
-        self.kda1Label.place(relx=0.205, rely=0.44, anchor='w')
+        self.kda1Label.place(relx=0.19, rely=0.44, anchor='w')
 
         self.kda2Label = Label(master)
         self.kda2Label.configure(background='black', fg='white', font=("Roboto",15))
-        self.kda2Label.place(relx=0.205, rely=0.64, anchor='w')
+        self.kda2Label.place(relx=0.19, rely=0.64, anchor='w')
 
         self.kda3Label = Label(master)
         self.kda3Label.configure(background='black', fg='white', font=("Roboto",15))
-        self.kda3Label.place(relx=0.205, rely=0.84, anchor='w')
+        self.kda3Label.place(relx=0.19, rely=0.84, anchor='w')
 
         self.kda1RatioLabel = Label(master)
         self.kda1RatioLabel.configure(background='black', fg='white', font=("Roboto",13))
-        self.kda1RatioLabel.place(relx=0.21, rely=0.465, anchor='w')
+        self.kda1RatioLabel.place(relx=0.19, rely=0.465, anchor='w')
 
         self.kda2RatioLabel = Label(master)
         self.kda2RatioLabel.configure(background='black', fg='white', font=("Roboto",13))
-        self.kda2RatioLabel.place(relx=0.21, rely=0.665, anchor='w')
+        self.kda2RatioLabel.place(relx=0.19, rely=0.665, anchor='w')
 
         self.kda3RatioLabel = Label(master)
         self.kda3RatioLabel.configure(background='black', fg='white', font=("Roboto",13))
-        self.kda3RatioLabel.place(relx=0.21, rely=0.865, anchor='w')
+        self.kda3RatioLabel.place(relx=0.19, rely=0.865, anchor='w')
 
         self.cs1Label = Label(master)
         self.cs1Label.configure(background='black', fg='white', font=("Roboto",12))
@@ -138,6 +138,31 @@ class Gui:
         self.time3Label = Label(master)
         self.time3Label.configure(background='black', fg='white', font=("Roboto",12))
         self.time3Label.place(relx=0.95, rely=0.82, anchor='e')
+
+        self.totalDMG1Label = Label(master) 
+        self.totalDMG1Label.configure(background='black', fg='white', font=("Roboto",12)) 
+        self.totalDMG1Label.place(relx=0.82, rely=0.445, anchor='e')
+
+        self.totalDMG2Label = Label(master) 
+        self.totalDMG2Label.configure(background='black', fg='white', font=("Roboto",12)) 
+        self.totalDMG2Label.place(relx=0.82, rely=0.645, anchor='e')
+
+        self.totalDMG3Label = Label(master) 
+        self.totalDMG3Label.configure(background='black', fg='white', font=("Roboto",12)) 
+        self.totalDMG3Label.place(relx=0.82, rely=0.845, anchor='e')
+
+
+        self.totalGold1Label = Label(master)
+        self.totalGold1Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.totalGold1Label.place(relx=0.82, rely=0.47, anchor='e')
+
+        self.totalGold2Label = Label(master)
+        self.totalGold2Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.totalGold2Label.place(relx=0.82, rely=0.67, anchor='e')
+
+        self.totalGold3Label = Label(master)
+        self.totalGold3Label.configure(background='black', fg='white', font=("Roboto",12))
+        self.totalGold3Label.place(relx=0.82, rely=0.87, anchor='e')
 
     def display(self, nickname, regions_var):
         name = nickname.get()
@@ -199,6 +224,8 @@ class Gui:
         self.showKDA(last3matches)
         self.showCS(last3matches)
         self.showTime(last3matches)
+        self.showDMG(last3matches)
+        self.showGold(last3matches)
         
 
 
@@ -291,6 +318,23 @@ class Gui:
         self.time2Label.configure(text=time2)
         self.time3Label.configure(text=time3)
 
+    def showDMG(self, last3matches):
+        dmg1=str(last3matches[0][0]['totalDamageDealtToChampions'])+" DMG"
+        dmg2=str(last3matches[1][0]['totalDamageDealtToChampions'])+" DMG"
+        dmg3=str(last3matches[2][0]['totalDamageDealtToChampions'])+" DMG"
+
+        self.totalDMG1Label.configure(text=dmg1)
+        self.totalDMG2Label.configure(text=dmg2)
+        self.totalDMG3Label.configure(text=dmg3)
+
+    def showGold(self, last3matches):
+        gold1=str(last3matches[0][0]['goldEarned']) + " gold"
+        gold2=str(last3matches[1][0]['goldEarned']) + " gold"
+        gold3=str(last3matches[2][0]['goldEarned']) + " gold"
+
+        self.totalGold1Label.configure(text= gold1)
+        self.totalGold2Label.configure(text= gold2)
+        self.totalGold3Label.configure(text= gold3)
 
 if __name__=="__main__":
     root = Tk()

@@ -50,7 +50,7 @@ class LoLwatcher():
                 participants_row['kills'] = row['kills']
                 participants_row['deaths'] = row['deaths']
                 participants_row['assists'] = row['assists']
-                participants_row['totalDamageDealt'] = row['totalDamageDealt']
+                participants_row['totalDamageDealtToChampions'] = row['totalDamageDealtToChampions']
                 participants_row['goldEarned'] = row['goldEarned']
                 participants_row['champLevel'] = row['champLevel']
                 participants_row['totalMinionsKilled'] = row['totalMinionsKilled']
@@ -71,7 +71,7 @@ class LoLwatcher():
                 participants_row['kills'] = row['kills']
                 participants_row['deaths'] = row['deaths']
                 participants_row['assists'] = row['assists']
-                participants_row['totalDamageDealt'] = row['totalDamageDealt']
+                participants_row['totalDamageDealtToChampions'] = row['totalDamageDealtToChampions']
                 participants_row['goldEarned'] = row['goldEarned']
                 participants_row['champLevel'] = row['champLevel']
                 participants_row['totalMinionsKilled'] = row['totalMinionsKilled']
@@ -92,7 +92,7 @@ class LoLwatcher():
                 participants_row['kills'] = row['kills']
                 participants_row['deaths'] = row['deaths']
                 participants_row['assists'] = row['assists']
-                participants_row['totalDamageDealt'] = row['totalDamageDealt']
+                participants_row['totalDamageDealtToChampions'] = row['totalDamageDealtToChampions']
                 participants_row['goldEarned'] = row['goldEarned']
                 participants_row['champLevel'] = row['champLevel']
                 participants_row['totalMinionsKilled'] = row['totalMinionsKilled']
@@ -138,7 +138,7 @@ class LoLwatcher():
             self.winsSolo = self.soloq['wins']
             self.lossesSolo = self.soloq['losses']
             self.allGamesSolo = self.winsSolo+self.lossesSolo
-            self.winratioSolo = (round(self.winsSolo/self.allGamesSolo,2))*100
+            self.winratioSolo = (round((self.winsSolo/self.allGamesSolo)*100,2))
             return "solo rank: {} {} {} LP \n wins: {} \n losses: {} \n winratio: {} %".format(self.tierSolo, self.rankSolo, self.leaguePointsSolo, self.winsSolo, self.lossesSolo, self.winratioSolo)
 
     @property
@@ -152,5 +152,5 @@ class LoLwatcher():
             self.winsFlex = self.flexq['wins']
             self.lossesFlex = self.flexq['losses']
             self.allGamesFlex = self.winsFlex+self.lossesFlex
-            self.winratioFlex = (round(self.winsFlex/self.allGamesFlex,2))*100
+            self.winratioFlex = (round((self.winsFlex/self.allGamesFlex)*100,2))
             return "flex rank: {} {} {} LP \n wins: {} \n losses: {} \n winratio: {} %".format(self.tierFlex, self.rankFlex, self.leaguePointsFlex, self.winsFlex, self.lossesFlex, self.winratioFlex)
