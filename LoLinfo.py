@@ -1,8 +1,4 @@
-from cProfile import label
-from re import L
 from tkinter import *
-from turtle import back
-from typing import List
 from riotwatcher import LolWatcher, ApiError
 from PIL import ImageTk, Image
 from os import *
@@ -164,6 +160,94 @@ class Gui:
         self.totalGold3Label.configure(background='black', fg='white', font=("Roboto",12))
         self.totalGold3Label.place(relx=0.82, rely=0.87, anchor='e')
 
+
+        self.game1Item0 = Label(master)
+        self.game1Item0.configure(background='black')
+        self.game1Item0.place(relx=0.38, rely=0.40)
+
+        self.game1Item1 = Label(master)
+        self.game1Item1.configure(background='black')
+        self.game1Item1.place(relx=0.44, rely=0.40)
+
+        self.game1Item2 = Label(master)
+        self.game1Item2.configure(background='black')
+        self.game1Item2.place(relx=0.50, rely=0.40)
+
+        self.game1Item3 = Label(master)
+        self.game1Item3.configure(background='black')
+        self.game1Item3.place(relx=0.56, rely=0.40)
+
+        self.game1Item4 = Label(master)
+        self.game1Item4.configure(background='black')
+        self.game1Item4.place(relx=0.38, rely=0.46)
+
+        self.game1Item5 = Label(master)
+        self.game1Item5.configure(background='black')
+        self.game1Item5.place(relx=0.44, rely=0.46)
+
+        self.game1Item6 = Label(master)
+        self.game1Item6.configure(background='black')
+        self.game1Item6.place(relx=0.50, rely=0.46)
+
+
+        self.game2Item0 = Label(master)
+        self.game2Item0.configure(background='black')
+        self.game2Item0.place(relx=0.38, rely=0.60)
+
+        self.game2Item1 = Label(master)
+        self.game2Item1.configure(background='black')
+        self.game2Item1.place(relx=0.44, rely=0.60)
+
+        self.game2Item2 = Label(master)
+        self.game2Item2.configure(background='black')
+        self.game2Item2.place(relx=0.50, rely=0.60)
+
+        self.game2Item3 = Label(master)
+        self.game2Item3.configure(background='black')
+        self.game2Item3.place(relx=0.56, rely=0.60)
+
+        self.game2Item4 = Label(master)
+        self.game2Item4.configure(background='black')
+        self.game2Item4.place(relx=0.38, rely=0.66)
+
+        self.game2Item5 = Label(master)
+        self.game2Item5.configure(background='black')
+        self.game2Item5.place(relx=0.44, rely=0.66)
+
+        self.game2Item6 = Label(master)
+        self.game2Item6.configure(background='black')
+        self.game2Item6.place(relx=0.50, rely=0.66)
+
+
+        self.game3Item0 = Label(master)
+        self.game3Item0.configure(background='black')
+        self.game3Item0.place(relx=0.38, rely=0.80)
+
+        self.game3Item1 = Label(master)
+        self.game3Item1.configure(background='black')
+        self.game3Item1.place(relx=0.44, rely=0.80)
+
+        self.game3Item2 = Label(master)
+        self.game3Item2.configure(background='black')
+        self.game3Item2.place(relx=0.50, rely=0.80)
+
+        self.game3Item3 = Label(master)
+        self.game3Item3.configure(background='black')
+        self.game3Item3.place(relx=0.56, rely=0.80)
+
+        self.game3Item4 = Label(master)
+        self.game3Item4.configure(background='black')
+        self.game3Item4.place(relx=0.38, rely=0.86)
+
+        self.game3Item5 = Label(master)
+        self.game3Item5.configure(background='black')
+        self.game3Item5.place(relx=0.44, rely=0.86)
+
+        self.game3Item6 = Label(master)
+        self.game3Item6.configure(background='black')
+        self.game3Item6.place(relx=0.50, rely=0.86)
+
+
     def display(self, nickname, regions_var):
         name = nickname.get()
         region = regions_var.get()
@@ -226,6 +310,7 @@ class Gui:
         self.showTime(last3matches)
         self.showDMG(last3matches)
         self.showGold(last3matches)
+        self.showPhotos(last3matches)
         
 
 
@@ -335,6 +420,157 @@ class Gui:
         self.totalGold1Label.configure(text= gold1)
         self.totalGold2Label.configure(text= gold2)
         self.totalGold3Label.configure(text= gold3)
+
+    def showPhotos(self, last3matches):
+        game1item0 = "12.6.1\\img\\item\\" + str(last3matches[0][0]['item0'])+".png"
+        game1item1 = "12.6.1\\img\\item\\" + str(last3matches[0][0]['item1'])+".png"
+        game1item2 = "12.6.1\\img\\item\\" + str(last3matches[0][0]['item2'])+".png"
+        game1item3 = "12.6.1\\img\\item\\" + str(last3matches[0][0]['item3'])+".png"
+        game1item4 = "12.6.1\\img\\item\\" + str(last3matches[0][0]['item4'])+".png"
+        game1item5 = "12.6.1\\img\\item\\" + str(last3matches[0][0]['item5'])+".png"
+        game1item6 = "12.6.1\\img\\item\\" + str(last3matches[0][0]['item6'])+".png"
+
+        game1img0 = Image.open(game1item0)
+        game1img0 = game1img0.resize((30,30))
+        game1img0test = ImageTk.PhotoImage(game1img0)
+        self.game1Item0.config(image=game1img0test)
+        self.game1Item0.image = game1img0test
+
+        game1img1 = Image.open(game1item1)
+        game1img1 = game1img1.resize((30,30))
+        game1img1test = ImageTk.PhotoImage(game1img1)
+        self.game1Item1.config(image=game1img1test)
+        self.game1Item1.image = game1img1test
+
+        game1img2 = Image.open(game1item2)
+        game1img2 = game1img2.resize((30,30))
+        game1img2test = ImageTk.PhotoImage(game1img2)
+        self.game1Item2.config(image=game1img2test)
+        self.game1Item2.image = game1img2test
+
+        game1img3 = Image.open(game1item3)
+        game1img3 = game1img3.resize((30,30))
+        game1img3test = ImageTk.PhotoImage(game1img3)
+        self.game1Item3.config(image=game1img3test)
+        self.game1Item3.image = game1img3test
+
+        game1img4 = Image.open(game1item4)
+        game1img4 = game1img4.resize((30,30))
+        game1img4test = ImageTk.PhotoImage(game1img4)
+        self.game1Item4.config(image=game1img4test)
+        self.game1Item4.image = game1img4test
+
+        game1img5 = Image.open(game1item5)
+        game1img5 = game1img5.resize((30,30))
+        game1img5test = ImageTk.PhotoImage(game1img5)
+        self.game1Item5.config(image=game1img5test)
+        self.game1Item5.image = game1img5test
+
+        game1img6 = Image.open(game1item6)
+        game1img6 = game1img6.resize((30,30))
+        game1img6test = ImageTk.PhotoImage(game1img6)
+        self.game1Item6.config(image=game1img6test)
+        self.game1Item6.image = game1img6test
+
+        game2item0 = "12.6.1\\img\\item\\" + str(last3matches[1][0]['item0'])+".png"
+        game2item1 = "12.6.1\\img\\item\\" + str(last3matches[1][0]['item1'])+".png"
+        game2item2 = "12.6.1\\img\\item\\" + str(last3matches[1][0]['item2'])+".png"
+        game2item3 = "12.6.1\\img\\item\\" + str(last3matches[1][0]['item3'])+".png"
+        game2item4 = "12.6.1\\img\\item\\" + str(last3matches[1][0]['item4'])+".png"
+        game2item5 = "12.6.1\\img\\item\\" + str(last3matches[1][0]['item5'])+".png"
+        game2item6 = "12.6.1\\img\\item\\" + str(last3matches[1][0]['item6'])+".png"
+
+        game2img0 = Image.open(game2item0)
+        game2img0 = game2img0.resize((30,30))
+        game2img0test = ImageTk.PhotoImage(game2img0)
+        self.game2Item0.config(image=game2img0test)
+        self.game2Item0.image = game2img0test
+
+        game2img1 = Image.open(game2item1)
+        game2img1 = game2img1.resize((30,30))
+        game2img1test = ImageTk.PhotoImage(game2img1)
+        self.game2Item1.config(image=game2img1test)
+        self.game2Item1.image = game2img1test
+
+        game2img2 = Image.open(game2item2)
+        game2img2 = game2img2.resize((30,30))
+        game2img2test = ImageTk.PhotoImage(game2img2)
+        self.game2Item2.config(image=game2img2test)
+        self.game2Item2.image = game2img2test
+
+        game2img3 = Image.open(game2item3)
+        game2img3 = game2img3.resize((30,30))
+        game2img3test = ImageTk.PhotoImage(game2img3)
+        self.game2Item3.config(image=game2img3test)
+        self.game2Item3.image = game2img3test
+
+        game2img4 = Image.open(game2item4)
+        game2img4 = game2img4.resize((30,30))
+        game2img4test = ImageTk.PhotoImage(game2img4)
+        self.game2Item4.config(image=game2img4test)
+        self.game2Item4.image = game2img4test
+
+        game2img5 = Image.open(game2item5)
+        game2img5 = game2img5.resize((30,30))
+        game2img5test = ImageTk.PhotoImage(game2img5)
+        self.game2Item5.config(image=game2img5test)
+        self.game2Item5.image = game2img5test
+
+        game2img6 = Image.open(game2item6)
+        game2img6 = game2img6.resize((30,30))
+        game2img6test = ImageTk.PhotoImage(game2img6)
+        self.game2Item6.config(image=game2img6test)
+        self.game2Item6.image = game2img6test
+
+        game3item0 = "12.6.1\\img\\item\\" + str(last3matches[2][0]['item0'])+".png"
+        game3item1 = "12.6.1\\img\\item\\" + str(last3matches[2][0]['item1'])+".png"
+        game3item2 = "12.6.1\\img\\item\\" + str(last3matches[2][0]['item2'])+".png"
+        game3item3 = "12.6.1\\img\\item\\" + str(last3matches[2][0]['item3'])+".png"
+        game3item4 = "12.6.1\\img\\item\\" + str(last3matches[2][0]['item4'])+".png"
+        game3item5 = "12.6.1\\img\\item\\" + str(last3matches[2][0]['item5'])+".png"
+        game3item6 = "12.6.1\\img\\item\\" + str(last3matches[2][0]['item6'])+".png"
+        
+        game3img0 = Image.open(game3item0)
+        game3img0 = game3img0.resize((30,30))
+        game3img0test = ImageTk.PhotoImage(game3img0)
+        self.game3Item0.config(image=game3img0test)
+        self.game3Item0.image = game3img0test
+
+        game3img1 = Image.open(game3item1)
+        game3img1 = game3img1.resize((30,30))
+        game3img1test = ImageTk.PhotoImage(game3img1)
+        self.game3Item1.config(image=game3img1test)
+        self.game3Item1.image = game3img1test
+
+        game3img2 = Image.open(game3item2)
+        game3img2 = game3img2.resize((30,30))
+        game3img2test = ImageTk.PhotoImage(game3img2)
+        self.game3Item2.config(image=game3img2test)
+        self.game3Item2.image = game3img2test
+
+        game3img3 = Image.open(game3item3)
+        game3img3 = game3img3.resize((30,30))
+        game3img3test = ImageTk.PhotoImage(game3img3)
+        self.game3Item3.config(image=game3img3test)
+        self.game3Item3.image = game3img3test
+
+        game3img4 = Image.open(game3item4)
+        game3img4 = game3img4.resize((30,30))
+        game3img4test = ImageTk.PhotoImage(game3img4)
+        self.game3Item4.config(image=game3img4test)
+        self.game3Item4.image = game3img4test
+
+        game3img5 = Image.open(game3item5)
+        game3img5 = game3img5.resize((30,30))
+        game3img5test = ImageTk.PhotoImage(game3img5)
+        self.game3Item5.config(image=game3img5test)
+        self.game3Item5.image = game3img5test
+
+        game3img6 = Image.open(game3item6)
+        game3img6 = game3img6.resize((30,30))
+        game3img6test = ImageTk.PhotoImage(game3img6)
+        self.game3Item6.config(image=game3img6test)
+        self.game3Item6.image = game3img6test
 
 if __name__=="__main__":
     root = Tk()
