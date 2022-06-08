@@ -1,6 +1,7 @@
 # LoLinfo
 App to display your ranked stats and last 3 games!
 Made using python. 
+![image](https://github.com/bartosseey/LoLinfo/blob/main/app.png)
 ## Setup
 1.
 ```
