@@ -10,10 +10,11 @@ pip install riotwatcher
 ```
 <br />
 2. Clone repository <br />
-3. Get API key from https://developer.riotgames.com and put it into apikey.py <br />
-4. Run!
+3. Download datadragon (icons) https://riot-api-libraries.readthedocs.io/en/latest/ddragon.html and put it into project folder. <br />
+4. Get API key from https://developer.riotgames.com and put it into apikey.py <br />
+5. Run!
 
 
 ## Libraries: 
-tkinter
+tkinter <br />
 riotwatcher
